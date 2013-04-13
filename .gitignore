@@ -1,0 +1,4 @@
+target/
+tags
+project/target
+.sbt~
