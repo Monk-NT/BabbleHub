@@ -3,7 +3,7 @@
 
 Current version = 0.2.1
 
-BabbleHub is a simple web chat client built on top of Netty libary, Redis database and WebSockets.
+BabbleHub is a simple web chat client built on top of Netty library, Redis database and WebSockets.
 At this moment, everything is a work in progress, including this README.
 
 
@@ -35,8 +35,8 @@ Change it to:
 ## ROADMAP ##
 
  1. Better logging
-   [X] remove sysout calls, except the first one
-   [ ] better logger
+   * remove sysout calls, except the first one
+   * better logger
  2. Show a part of chat history;
  3. Implement authentication;
  4. Stop depending on browser WebSocket implementation and start using Socket.io libary;
