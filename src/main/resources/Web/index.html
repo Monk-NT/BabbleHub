@@ -1,0 +1,31 @@
+<html>
+	<head>
+	<title>Title</title></head>
+	<script type="text/javascript">
+	var socket = new WebSocket("ws://localhost:8080/bableHub");
+	socket.onopen = function(event){
+		
+  }
+  socket.onmessage = function(event){
+    var msg = event.data;
+    var ta = document.getElementById('chatWindow');
+    ta.value = ta.value + '\n' + msg;
+  };
+	function send (message) {
+	
+		if (socket.readyState == WebSocket.OPEN){
+			socket.send(message);
+		}
+		
+	}
+	</script>
+  <body>
+    
+    <form onsubmit="return false">
+      
+      <textarea id="chatWindow"></textarea> 
+      <input type="text" name="message" /> 
+      <input type="button" value="foo" onclick="send(this.form.message.value)" /> 
+    </form> 
+  </body> 
+</html>
