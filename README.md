@@ -18,10 +18,13 @@ At this moment, everything is a work in progress, including this README.
 If you run your instance anywhere else but the default port, you will have to make a 
 few changes to the source code.
 So anywhere where you find code looking like this:
+``` java
     Jedis jedis = new Jedis (ServerConfig.getConfig().getRedisLocation());
+```
 Change it to:
+``` java
     Jedis jedis = new Jedis (ServerConfig.getConfig().getRedisLocation(), PORT_NUM);
-
+```
 ## If you want to you could...##
 --------------------------------
 ...help me with javascript
