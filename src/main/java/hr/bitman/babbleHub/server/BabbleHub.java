@@ -3,10 +3,14 @@ package hr.bitman.babbleHub.server;
 import hr.bitman.babbleHub.config.ServerConfig;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
@@ -34,6 +38,7 @@ public class BabbleHub {
 	}
 	
 	public static void main(String[] args) {
+		PropertyConfigurator.configure(BabbleHub.class.getClassLoader().getResourceAsStream("log4j.properties"));
 		BabbleHub babel = new BabbleHub();
 		babel.run();
 		final Jedis subJed = new Jedis(ServerConfig.getConfig().getRedisLocation());
