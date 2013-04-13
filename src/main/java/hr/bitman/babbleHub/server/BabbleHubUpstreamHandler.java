@@ -3,6 +3,7 @@ package hr.bitman.babbleHub.server;
 import hr.bitman.babbleHub.redis.RedisPublisher;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
 
+import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelFuture;
@@ -30,9 +31,11 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 	private final RedisPublisher publisher = new RedisPublisher();
 	private RedisSubscriber subscriber = RedisSubscriber.getInstance();
 	private WebSocketServerHandshaker handshaker;
+	private final static Logger log = Logger.getLogger(BabbleHubUpstreamHandler.class);
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
 			throws Exception {
+	
 		Object msg = e.getMessage();
 		if (msg instanceof HttpRequest){
 			handleHttpRequests(ctx, (HttpRequest) msg);
@@ -49,8 +52,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			return;
 		}
 		
-		
-		
+
 		if (!(frame instanceof TextWebSocketFrame)){
 			throw new UnsupportedOperationException(frame.getClass().getName() + " not supported");
 			
@@ -65,17 +67,19 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 	private void handleHttpRequests(ChannelHandlerContext ctx, HttpRequest req) {
 		
 		if (req.getMethod() != HttpMethod.GET){
+			log.info("Detected POST request - FORBIDDEN");
 			sendHttpResponse(ctx, req, new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.FORBIDDEN));
 		}
 		
 		if ("/".equals(req.getUri())){
-			
+			log.info("New connection recieved - requesting index.html");
 			HttpResponse res = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
 			ChannelBuffer content = ServeFile.getContent("index.html");
 			res.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text/html; charset=UTF-8");
 			HttpHeaders.setContentLength(res,content.readableBytes());
 			res.setContent(content);
 			sendHttpResponse(ctx, req, res);
+			log.info("index.html sent");
 			return;
 		}
 		if ("/favicon.ico".equals(req.getUri())){
@@ -83,11 +87,14 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			return;
 		}
 		
+		log.info("Handshake initiated");
 		WebSocketServerHandshakerFactory handshakerFactory = new WebSocketServerHandshakerFactory("ws://" + req.getHeader(HttpHeaders.Names.HOST) +"/bableHub", null, false);
 		handshaker = handshakerFactory.newHandshaker(req);
 		if (handshaker == null){
+			log.info("Handshake failed due to unsupported WebSocket version");
 			handshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.getChannel());
 		} else {
+			log.info("Handshake succeeded, adding channel to subscriber");
 			handshaker.handshake(ctx.getChannel(), req).addListener(WebSocketServerHandshaker.HANDSHAKE_LISTENER);
 			subscriber.addChannel(ctx.getChannel());
 		}
@@ -110,7 +117,6 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext arg0, ExceptionEvent arg1)
 			throws Exception {
-		// TODO Auto-generated method stub
 		super.exceptionCaught(arg0, arg1);
 	}
 

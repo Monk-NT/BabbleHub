@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Server config singleton class used to load resources
@@ -15,7 +17,7 @@ public class ServerConfig {
 	private Properties props = new Properties();
 	
 	private static ServerConfig instance = null;
-	
+	private final static Logger log = Logger.getLogger(ServerConfig.class);
 
 	
 	private ServerConfig(){
@@ -23,7 +25,7 @@ public class ServerConfig {
 		try {
 			props.load(is);
 		} catch (IOException e) {
-			System.out.println("Can not load resource");
+			log.error("Can not load resource", e);
 		}
 	}
 	

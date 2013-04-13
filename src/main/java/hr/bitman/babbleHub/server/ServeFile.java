@@ -2,6 +2,7 @@ package hr.bitman.babbleHub.server;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
@@ -9,7 +10,7 @@ import com.google.common.io.ByteStreams;
 
 
 public class ServeFile {
-
+	private final static Logger log = Logger.getLogger(ServeFile.class);
 	public static final String PATH = "web/";
 	/**
 	 * 
@@ -23,7 +24,7 @@ public class ServeFile {
 			byte[] array = ByteStreams.toByteArray(ChannelBuffer.class.getClassLoader().getResourceAsStream(PATH + filename));
 			return ChannelBuffers.copiedBuffer(array);
 		} catch (IOException e) {
-			System.out.println("Could not load content from file");
+			log.error("Could not load content from file");
 		}
 		return null;
 	}
