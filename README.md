@@ -8,7 +8,7 @@ At this moment, everything is a work in progress, including this README.
 
 
 ## Installation instructions ##
-------------------------------
+
  * Install simple build tool;
  * Obtain and install Redis following the Redis installation instructions;
  * Change the server.properties redis.location property to point to your Redis server;
@@ -26,14 +26,14 @@ Change it to:
     Jedis jedis = new Jedis (ServerConfig.getConfig().getRedisLocation(), PORT_NUM);
 ```
 ## If you want to you could...##
---------------------------------
+
 ...help me with javascript
 
 ...look for bugs in java soruce
 
 ...or just thorw ideas at me. Including silly ones.
 ## ROADMAP ##
--------------
+
  1. Better logging (remove all sysout calls, except a few);
  2. Show a part of chat history;
  3. Implement authentication;
