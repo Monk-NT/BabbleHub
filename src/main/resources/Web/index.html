@@ -1,8 +1,9 @@
 <html>
-	<head>
+  <head>
 	<title>Title</title></head>
 	<script type="text/javascript">
-	var socket = new WebSocket("ws://localhost:8080/bableHub");
+  
+  var socket = new WebSocket("ws://localhost:8080/bableHub");
 	socket.onopen = function(event){
 		
   }
@@ -23,7 +24,7 @@
     
     <form onsubmit="return false">
       
-      <textarea id="chatWindow"></textarea> 
+      <textarea id="chatWindow"></textarea><br> 
       <input type="text" name="message" /> 
       <input type="button" value="foo" onclick="send(this.form.message.value)" /> 
     </form> 

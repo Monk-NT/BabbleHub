@@ -3,10 +3,7 @@ package hr.bitman.babbleHub.server;
 import hr.bitman.babbleHub.config.ServerConfig;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
-import java.util.Properties;
 import java.util.concurrent.Executors;
 
 import org.apache.log4j.BasicConfigurator;

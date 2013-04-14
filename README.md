@@ -13,7 +13,8 @@ At this moment, everything is a work in progress, including this README.
  * Install simple build tool;
  * Obtain and install Redis following the Redis installation instructions;
  * Change the server.properties redis.location property to point to your Redis server;
- * To run, simply type sbt run in your command line.
+ * To run, simply type ```sbt run``` in your command line.
+ * Point your browser to [localhost:8080](http://localhost:8080/)
 
 ### A few remarks ###
 If you run your Redis instance anywhere else but the default port, you will have to make a 
@@ -36,15 +37,16 @@ More on using jedis can be seen in the [jedis wiki](https://github.com/xetorthio
 ...look for bugs in java soruce
 
 ...or just thorw ideas at me. Including silly ones.
-## ROADMAP ##
+## Further work ##
 
- 1. Better logging
+ * Better logging
    * remove sysout calls, except the first one
    * better logger
- 2. Show a part of chat history;
- 3. Implement authentication;
- 4. Stop depending on browser WebSocket implementation and start using Socket.io libary;
- 5. Fix the UI (make it pretty);
- 6. Plugin system;
- 7. Mobile support;
+ * Show a part of chat history;
+ * Implement authentication;
+ * Fix the UI (make it pretty);
+ * Plugin system;
+ * Mobile support;
 
+## ROADMAP ##
+ -
