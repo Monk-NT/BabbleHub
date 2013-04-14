@@ -42,7 +42,6 @@ More on using jedis can be seen in the [jedis wiki](https://github.com/xetorthio
  * Better logging
    * remove sysout calls, except the first one
    * better logger
- * Show a part of chat history;
  * Implement authentication;
  * Fix the UI (make it pretty);
  * Plugin system;
