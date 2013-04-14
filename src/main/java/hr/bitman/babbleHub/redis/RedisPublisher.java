@@ -4,8 +4,8 @@ import hr.bitman.babbleHub.config.ServerConfig;
 import redis.clients.jedis.Jedis;
 
 /**
- * Redis publisher
- * @author Monk
+ * Redis publisher.
+ * @author vsrdarevic
  *
  */
 public class RedisPublisher {

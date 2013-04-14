@@ -7,7 +7,11 @@ import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import redis.clients.jedis.JedisPubSub;
-
+/**
+ * Redis subscriber, extends JedisPubSub
+ * @author vsrdarevic
+ *
+ */
 public class RedisSubscriber extends JedisPubSub{
 
 	private ChannelGroup channelGroup = new DefaultChannelGroup();
@@ -30,25 +34,24 @@ public class RedisSubscriber extends JedisPubSub{
 
 	@Override
 	public void onPMessage(String arg0, String arg1, String arg2) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void onPSubscribe(String arg0, int arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onPUnsubscribe(String arg0, int arg1) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 
 	@Override
 	public void onSubscribe(String arg0, int arg1) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

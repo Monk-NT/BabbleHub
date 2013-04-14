@@ -8,7 +8,11 @@ import org.jboss.netty.buffer.ChannelBuffers;
 
 import com.google.common.io.ByteStreams;
 
-
+/**
+ * Reading a file from disk and serving it.
+ * @author vsrdarevic
+ *
+ */
 public class ServeFile {
 	private final static Logger log = Logger.getLogger(ServeFile.class);
 	public static final String PATH = "web/";
