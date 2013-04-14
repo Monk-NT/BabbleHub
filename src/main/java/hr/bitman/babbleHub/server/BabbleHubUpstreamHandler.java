@@ -1,5 +1,6 @@
 package hr.bitman.babbleHub.server;
 
+import hr.bitman.babbleHub.buffer.BabbleBuffer;
 import hr.bitman.babbleHub.redis.RedisPublisher;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
 
@@ -31,6 +32,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 	private final RedisPublisher publisher = new RedisPublisher();
 	private RedisSubscriber subscriber = RedisSubscriber.getInstance();
 	private WebSocketServerHandshaker handshaker;
+	private static BabbleBuffer buffer = new BabbleBuffer();
 	private final static Logger log = Logger.getLogger(BabbleHubUpstreamHandler.class);
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
@@ -57,8 +59,12 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			throw new UnsupportedOperationException(frame.getClass().getName() + " not supported");
 			
 		}
-		String request = ((TextWebSocketFrame) frame).getText();		
-		publisher.publish(ctx.getChannel().getId() + ": " + request);
+		String request = ((TextWebSocketFrame) frame).getText();	
+		String message = ctx.getChannel().getId() + ": " + request;
+		
+		buffer.addLine(message);
+		
+		publisher.publish(message);
 		
 
 		
@@ -94,9 +100,13 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			log.info("Handshake failed due to unsupported WebSocket version");
 			handshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.getChannel());
 		} else {
-			log.info("Handshake succeeded, adding channel to subscriber");
+			
 			handshaker.handshake(ctx.getChannel(), req).addListener(WebSocketServerHandshaker.HANDSHAKE_LISTENER);
+			log.info("Handshake succeeded, adding channel to subscriber");
+			log.debug("Sending buffered chat:" + buffer.toString());
+			ctx.getChannel().write(new TextWebSocketFrame(buffer.toString()));
 			subscriber.addChannel(ctx.getChannel());
+			
 		}
 	}
 

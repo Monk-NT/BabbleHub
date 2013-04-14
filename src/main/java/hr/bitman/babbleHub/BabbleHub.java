@@ -14,7 +14,7 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import redis.clients.jedis.Jedis;
 
 /**
- * Main entry point into application
+ * 
  * @author vsrdarevic
  *
  */

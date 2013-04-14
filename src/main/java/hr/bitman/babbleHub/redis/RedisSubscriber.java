@@ -17,6 +17,7 @@ public class RedisSubscriber extends JedisPubSub{
 	private ChannelGroup channelGroup = new DefaultChannelGroup();
 	private static RedisSubscriber instance = null;
 	private final static Logger log = Logger.getLogger(RedisSubscriber.class);
+	
 	private RedisSubscriber(){
 		
 	}
