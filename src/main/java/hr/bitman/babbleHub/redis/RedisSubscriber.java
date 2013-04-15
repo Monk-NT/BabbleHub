@@ -1,10 +1,11 @@
 package hr.bitman.babbleHub.redis;
 
-import org.apache.log4j.Logger;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.group.ChannelGroup;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.jboss.netty.logging.InternalLogger;
+import org.jboss.netty.logging.InternalLoggerFactory;
 
 import redis.clients.jedis.JedisPubSub;
 /**
@@ -16,7 +17,8 @@ public class RedisSubscriber extends JedisPubSub{
 
 	private ChannelGroup channelGroup = new DefaultChannelGroup();
 	private static RedisSubscriber instance = null;
-	private final static Logger log = Logger.getLogger(RedisSubscriber.class);
+	
+	private static final InternalLogger log = InternalLoggerFactory.getInstance(RedisSubscriber.class);
 	
 	private RedisSubscriber(){
 		
@@ -62,7 +64,7 @@ public class RedisSubscriber extends JedisPubSub{
 	}
 	
 	public void addChannel(Channel channel){
-		log.info("Channel added: " + channel.getId());
+		
 		this.channelGroup.add(channel);
 	}
 

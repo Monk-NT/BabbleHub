@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.jboss.netty.logging.InternalLogger;
+import org.jboss.netty.logging.InternalLoggerFactory;
 
 
 /**
@@ -17,7 +18,7 @@ public class ServerConfig {
 	private Properties props = new Properties();
 	
 	private static ServerConfig instance = null;
-	private final static Logger log = Logger.getLogger(ServerConfig.class);
+	private final static InternalLogger log = InternalLoggerFactory.getInstance(ServerConfig.class);
 
 	
 	private ServerConfig(){

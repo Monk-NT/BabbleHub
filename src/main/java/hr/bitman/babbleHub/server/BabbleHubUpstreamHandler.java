@@ -4,7 +4,6 @@ import hr.bitman.babbleHub.buffer.BabbleBuffer;
 import hr.bitman.babbleHub.redis.RedisPublisher;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
 
-import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelFuture;
@@ -25,6 +24,8 @@ import org.jboss.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.jboss.netty.handler.codec.http.websocketx.WebSocketFrame;
 import org.jboss.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import org.jboss.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
+import org.jboss.netty.logging.InternalLogger;
+import org.jboss.netty.logging.InternalLoggerFactory;
 import org.jboss.netty.util.CharsetUtil;
 
 public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
@@ -33,7 +34,9 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 	private RedisSubscriber subscriber = RedisSubscriber.getInstance();
 	private WebSocketServerHandshaker handshaker;
 	private static BabbleBuffer buffer = new BabbleBuffer();
-	private final static Logger log = Logger.getLogger(BabbleHubUpstreamHandler.class);
+	
+	private final static InternalLogger log = InternalLoggerFactory.getInstance(BabbleHubUpstreamHandler.class);
+	
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e)
 			throws Exception {
@@ -105,6 +108,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			log.info("Handshake succeeded, adding channel to subscriber");
 			log.debug("Sending buffered chat:" + buffer.toString());
 			ctx.getChannel().write(new TextWebSocketFrame(buffer.toString()));
+			log.info("Adding channel: " + ctx.getChannel().getId());
 			subscriber.addChannel(ctx.getChannel());
 			
 		}

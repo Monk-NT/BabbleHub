@@ -2,9 +2,10 @@ package hr.bitman.babbleHub.server;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
+import org.jboss.netty.logging.InternalLogger;
+import org.jboss.netty.logging.InternalLoggerFactory;
 
 import com.google.common.io.ByteStreams;
 
@@ -14,7 +15,7 @@ import com.google.common.io.ByteStreams;
  *
  */
 public class ServeFile {
-	private final static Logger log = Logger.getLogger(ServeFile.class);
+	private final static InternalLogger log = InternalLoggerFactory.getInstance(ServeFile.class);
 	public static final String PATH = "web/";
 	/**
 	 * 
