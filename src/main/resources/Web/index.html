@@ -1,32 +1,57 @@
 <html>
   <head>
-	<title>Title</title></head>
-	<script type="text/javascript">
-  
-  var socket = new WebSocket("ws://localhost:8080/bableHub");
-	socket.onopen = function(event){
-		
-  }
-  socket.onmessage = function(event){
-    var msg = event.data;
-    var ta = document.getElementById('chatWindow');
-    ta.value = ta.value + '\n' + msg;
-  };
-	function send (message) {
-	
-		if (socket.readyState == WebSocket.OPEN){
-			socket.send(message);
-		}
-		
-	}
-	</script>
+	 <title>BabbleHub</title>
+   <style type="text/css">
+    body {
+      width: 70%;
+      margin: auto;
+    }
+    textarea {
+      width: 100%;
+      margin-top: 2px;
+      border: 0;
+      color: #003366;
+      font-size: 12pt;
+      font-family: Arial;
+      outline:none;
+    }
+    h1 {
+      color: #cccc99;
+    }
+    .halfWidth {
+      width: 50%;
+      color: #E18A07;
+      font-size: 12pt;
+      font-family: Arial;
+      outline:none;
+    }
+   </style>
+  </head>
   <body>
-    
-    <form onsubmit="return false">
-      
-      <textarea id="chatWindow"></textarea><br> 
-      <input type="text" name="message" /> 
-      <input type="button" value="foo" onclick="send(this.form.message.value)" /> 
-    </form> 
-  </body> 
+    <h1>BabbleHub</h1>
+    <form onsubmit="return false">      
+      <textarea id="chatWindow" rows="20" readonly></textarea><br/> 
+      <input class="halfWidth" type="text" name="message" /> 
+      <input type="button" value="send" onclick="send(this.form.message.value)" /> 
+    </form>
+
+    <script type="text/javascript">
+      var socket = new WebSocket("ws://localhost:8080/bableHub");
+
+      socket.onopen = function(event){  
+      };
+
+      socket.onmessage = function(event){
+        var msg = event.data;
+        var ta = document.getElementById('chatWindow');
+        ta.value = ta.value + '\n' + msg;
+      };
+
+      function send (message) {
+        if (socket.readyState == WebSocket.OPEN){
+          socket.send(message);
+        }
+      }
+    </script>
+  </body>
 </html>
