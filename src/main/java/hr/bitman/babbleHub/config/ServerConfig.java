@@ -42,6 +42,10 @@ public class ServerConfig {
 		return props.getProperty("redis.location");
 	}
 	
+	public int getPort(){
+		return Integer.parseInt(props.getProperty("server.port"));
+	}
+	
 	public  String getProperty(String key){
 		return props.getProperty(key);
 	}

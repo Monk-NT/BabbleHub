@@ -21,9 +21,15 @@ import redis.clients.jedis.Jedis;
  */
 public class BabbleHub {
 
-	private final int port = 8080;
-	private final static RedisSubscriber subscriber = RedisSubscriber.getInstance();
+	private final int port;
+	private final RedisSubscriber subscriber;
 	
+	
+	
+	public BabbleHub() {
+		this.port = ServerConfig.getConfig().getPort();
+		this.subscriber = RedisSubscriber.getInstance(); 
+	}
 	/**
 	 * Runs the BabbleHub
 	 */
