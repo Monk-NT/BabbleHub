@@ -6,7 +6,7 @@
       width: 70%;
       margin: auto;
     }
-    textarea {
+    textArea {
       width: 100%;
       margin-top: 2px;
       border: 0;
@@ -29,15 +29,15 @@
   </head>
   <body>
     <h1>BabbleHub</h1>
+    <canvas id="chatArea"></canvas>
     <form onsubmit="return false">      
-      <textarea id="chatWindow" rows="20" readonly></textarea><br/> 
       <input class="halfWidth" type="text" name="message" /> 
       <input type="button" value="send" onclick="send(this.form.message.value)" /> 
     </form>
 
     <script type="text/javascript">
 
-
+      var chatText = "";
       var socket = new WebSocket("ws://localhost:8080/bableHub");
 
       socket.onopen = function(event){  
@@ -45,8 +45,11 @@
 
       socket.onmessage = function(event){
         var msg = event.data;
-        var ta = document.getElementById('chatWindow');
-        ta.value = ta.value + '\n' + msg;
+        var c   = document.getElementById('chatArea');
+        var ctx = c.getContext("2d");
+        
+        chatText = chatText + '\n' + msg;
+        ctx.fillText(chatText,10,50);
       };
 
       function send (message) {
