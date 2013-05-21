@@ -31,6 +31,7 @@ public class RedisSubscriber extends JedisPubSub{
 	}
 	@Override
 	public void onMessage(String channel, String msg) {
+		log.debug("Sending msg:" + msg);
 		channelGroup.write(new TextWebSocketFrame(msg));
 		
 	}

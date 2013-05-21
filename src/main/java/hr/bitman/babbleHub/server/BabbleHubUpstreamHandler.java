@@ -3,6 +3,7 @@ package hr.bitman.babbleHub.server;
 import hr.bitman.babbleHub.buffer.BabbleBuffer;
 import hr.bitman.babbleHub.redis.RedisPublisher;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
+import hr.bitman.babbleHub.server.config.PrepareMessage;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -63,9 +64,10 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			
 		}
 		String request = ((TextWebSocketFrame) frame).getText();	
-		String message = ctx.getChannel().getId() + ": " + request;
-		
-		buffer.addLine(message);
+		log.debug("Recieved message");
+		String message = PrepareMessage.createMessage("" + ctx.getChannel().getId(), request);
+		log.debug("message prepared: " + message);
+		buffer.addLine(message+",");
 		
 		publisher.publish(message);
 		
@@ -107,7 +109,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			handshaker.handshake(ctx.getChannel(), req).addListener(WebSocketServerHandshaker.HANDSHAKE_LISTENER);
 			log.info("Handshake succeeded, adding channel to subscriber");
 			log.debug("Sending buffered chat:" + buffer.toString());
-			ctx.getChannel().write(new TextWebSocketFrame(buffer.toString()));
+			ctx.getChannel().write(new TextWebSocketFrame(PrepareMessage.createMessage(buffer)));
 			log.info("Adding channel: " + ctx.getChannel().getId());
 			subscriber.addChannel(ctx.getChannel());
 			

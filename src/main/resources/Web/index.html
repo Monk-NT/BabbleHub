@@ -29,7 +29,7 @@
   </head>
   <body>
     <h1>BabbleHub</h1>
-    <canvas id="chatArea"></canvas>
+    <div id ="chatArea"></div>
     <form onsubmit="return false">      
       <input class="halfWidth" type="text" name="message" /> 
       <input type="button" value="send" onclick="send(this.form.message.value)" /> 
@@ -37,19 +37,18 @@
 
     <script type="text/javascript">
 
-      var chatText = "";
+      var chatLocation = 10;
       var socket = new WebSocket("ws://localhost:8080/bableHub");
 
       socket.onopen = function(event){  
       };
 
       socket.onmessage = function(event){
-        var msg = event.data;
-        var c   = document.getElementById('chatArea');
-        var ctx = c.getContext("2d");
-        
-        chatText = chatText + '\n' + msg;
-        ctx.fillText(chatText,10,50);
+         var msg = JSON.parse(event.data);
+        var node   = document.getElementById('chatArea');
+        node.innerHTML='<h1>' + msg.userId + '</h1><p>'+msg.message+'</p>';
+
+
       };
 
       function send (message) {
