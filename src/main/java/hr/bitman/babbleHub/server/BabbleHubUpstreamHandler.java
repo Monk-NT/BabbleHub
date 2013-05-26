@@ -97,6 +97,25 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			sendHttpResponse(ctx, req, new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND));
 			return;
 		}
+		if (req.getUri().contains(".css")){ 
+			String filename = req.getUri().replace("/", "");
+			String type = "text/css; charset=UTF-8";
+			loadAndSendFile(filename, type, ctx, req);
+			return;
+		}
+		if (req.getUri().contains(".html")){ 
+			String filename = req.getUri().replace("/", "");
+			String type = "text/html; charset=UTF-8";
+			loadAndSendFile(filename, type, ctx, req);
+			return;
+		}
+		if (req.getUri().contains(".js")){ 
+			String filename = req.getUri().replace("/", "");
+			String type = "text/javascript; charset=UTF-8";
+			loadAndSendFile(filename, type, ctx, req);
+			return;
+		}
+		
 		
 		log.info("Handshake initiated");
 		WebSocketServerHandshakerFactory handshakerFactory = new WebSocketServerHandshakerFactory("ws://" + req.getHeader(HttpHeaders.Names.HOST) +"/bableHub", null, false);
@@ -128,6 +147,17 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			future.addListener(ChannelFutureListener.CLOSE);
 		}
 		
+	}
+	
+	private void loadAndSendFile(String filename, String type, ChannelHandlerContext ctx, HttpRequest req){
+		HttpResponse res = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+		log.info(filename + " requested");
+		ChannelBuffer content = ServeFile.getContent(filename);
+		res.setHeader(HttpHeaders.Names.CONTENT_TYPE, type);
+		HttpHeaders.setContentLength(res, content.readableBytes());
+		res.setContent(content);
+		sendHttpResponse(ctx, req, res);
+		log.info(filename + " sent");
 	}
 
 	@Override

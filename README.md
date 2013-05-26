@@ -1,7 +1,7 @@
 # BabbleHub #
 ============
 
-Current version = 0.5.4
+Current version = 0.5.5
 
 BabbleHub is a simple web chat client built on top of [Netty](http://netty.io) library, [Redis database](http://redis.io/) and WebSockets.
 Connecting to Redis is done using the awesome [Jedis](https://github.com/xetorthio/jedis) library.

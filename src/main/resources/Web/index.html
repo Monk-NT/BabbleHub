@@ -1,31 +1,9 @@
 <html>
   <head>
 	 <title>BabbleHub</title>
-   <style type="text/css">
-    body {
-      width: 70%;
-      margin: auto;
-    }
-    textArea {
-      width: 100%;
-      margin-top: 2px;
-      border: 0;
-      color: #003366;
-      font-size: 12pt;
-      font-family: Arial;
-      outline:none;
-    }
-    h1 {
-      color: #cccc99;
-    }
-    .halfWidth {
-      width: 50%;
-      color: #E18A07;
-      font-size: 12pt;
-      font-family: Arial;
-      outline:none;
-    }
-   </style>
+   <link href="style.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
   </head>
   <body>
     <h1>BabbleHub</h1>
@@ -38,15 +16,16 @@
     <script type="text/javascript">
 
       var chatLocation = 10;
-      var socket = new WebSocket("ws://localhost:8080/bableHub");
-
+      var socket = new WebSocket("ws://192.168.5.95:8080/bableHub");
+      var chatMsgs;
       socket.onopen = function(event){  
       };
 
       socket.onmessage = function(event){
-         var msg = JSON.parse(event.data);
+        var msg = JSON.parse(event.data);
         var node   = document.getElementById('chatArea');
-        node.innerHTML='<h1>' + msg.userId + '</h1><p>'+msg.message+'</p>';
+        chatMsgs += "<p>" + msg.userId + ": " + msg.message + "</p>";
+        node.innerHTML= chatMsgs;
 
 
       };
