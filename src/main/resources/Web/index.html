@@ -7,7 +7,10 @@
   </head>
   <body>
     <h1>BabbleHub</h1>
-    <div id ="chatArea"></div>
+    <div id="container">
+      <div id ="chat">
+      </div>
+    </div>
     <form onsubmit="return false">      
       <input class="halfWidth" type="text" name="message" /> 
       <input type="button" value="send" onclick="send(this.form.message.value)" /> 
@@ -16,14 +19,14 @@
     <script type="text/javascript">
 
       var chatLocation = 10;
-      var socket = new WebSocket("ws://192.168.5.95:8080/bableHub");
+      var socket = new WebSocket("ws://localhost:8080/bableHub");
       var chatMsgs;
       socket.onopen = function(event){  
       };
 
       socket.onmessage = function(event){
         var msg = JSON.parse(event.data);
-        var node   = document.getElementById('chatArea');
+        var node   = document.getElementById('chat');
         chatMsgs += "<p>" + msg.userId + ": " + msg.message + "</p>";
         node.innerHTML= chatMsgs;
 
