@@ -2,4 +2,5 @@ target/
 logs/
 tags
 project/target
+.vagrantfile
 .sbt~

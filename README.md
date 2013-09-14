@@ -39,7 +39,7 @@ More on using jedis can be seen in the [jedis wiki](https://github.com/xetorthio
 ...or just throw ideas at me. Including silly ones.
 ## Further work ##
 
- * Add deployment by Vargant
+ * ~~Add deployment by Vargant~~
  * Add picture support;
  * Add file upload support;
  * Authentication;
