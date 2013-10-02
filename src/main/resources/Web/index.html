@@ -20,15 +20,17 @@
 
       var chatLocation = 10;
       var socket = new WebSocket("ws://localhost:8080/bableHub");
-      var chatMsgs;
+      var chatMsgs = "";
       socket.onopen = function(event){  
       };
 
       socket.onmessage = function(event){
         var msg = JSON.parse(event.data);
         var node   = document.getElementById('chat');
-        chatMsgs += "<p>" + msg.userId + ": " + msg.message + "</p>";
-        node.innerHTML= chatMsgs;
+        if (msg.userId != undefined) {
+          chatMsgs += "<p>" + msg.userId + ": " + msg.message + "</p>";
+          node.innerHTML= chatMsgs;
+        }
 
 
       };
