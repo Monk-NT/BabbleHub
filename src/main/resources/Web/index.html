@@ -16,30 +16,7 @@
       <input type="button" value="send" onclick="send(this.form.message.value)" /> 
     </form>
 
-    <script type="text/javascript">
+    <script src="chat.js"></script>
 
-      var chatLocation = 10;
-      var socket = new WebSocket("ws://localhost:8080/bableHub");
-      var chatMsgs = "";
-      socket.onopen = function(event){  
-      };
-
-      socket.onmessage = function(event){
-        var msg = JSON.parse(event.data);
-        var node   = document.getElementById('chat');
-        if (msg.userId != undefined) {
-          chatMsgs += "<p>" + msg.userId + ": " + msg.message + "</p>";
-          node.innerHTML= chatMsgs;
-        }
-
-
-      };
-
-      function send (message) {
-        if (socket.readyState == WebSocket.OPEN){
-          socket.send(message);
-        }
-      }
-    </script>
   </body>
 </html>
