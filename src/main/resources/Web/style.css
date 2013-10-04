@@ -2,17 +2,8 @@ body{
       width: 70%;
       margin: auto;
     }
-    textArea {
-      width: 100%;
-      margin-top: 2px;
-      border: 0;
-      color: #003366;
-      font-size: 12pt;
-      font-family: Arial;
-      outline:none;
-    }
     .halfWidth {
-      width: 50%;
+      width: 95%;
       color: #E18A07;
       font-size: 12pt;
       font-family: Arial;
