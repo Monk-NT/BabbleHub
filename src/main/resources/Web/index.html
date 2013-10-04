@@ -11,9 +11,8 @@
       <div id ="chat">
       </div>
     </div>
-    <form onsubmit="return false">      
-      <input class="halfWidth" type="text" name="message" /> 
-      <input type="button" value="send" onclick="send(this.form.message.value)" /> 
+    <form onsubmit="return false" id = "chatInput">      
+      <input id ="inputField" type="text" name="message" onkeydown="submitOnEnter(event, this.form.message.value)"/> 
     </form>
 
     <script src="chat.js"></script>

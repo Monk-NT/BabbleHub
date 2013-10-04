@@ -17,7 +17,18 @@ socket.onmessage = function(event){
 
 };
 function send (message) {
+  var form = document.getElementById("chatInput");
+  form.reset();
   if (socket.readyState == WebSocket.OPEN){
     socket.send(message);
   }
+}
+
+
+function submitOnEnter(e, message){ 
+ 
+ if (e.keyCode == 13) {
+   send(message); 
+   return false;
+ }
 }
