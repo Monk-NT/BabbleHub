@@ -97,6 +97,15 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			sendHttpResponse(ctx, req, new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND));
 			return;
 		}
+		
+		if ("/status".equals(req.getUri())){
+			HttpResponse res = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+			ChannelBuffer content = ChannelBuffers.copiedBuffer("Status: OK".getBytes());
+			res.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text; charset=UTF-8");
+			HttpHeaders.setContentLength(res, content.readableBytes());
+			res.setContent(content);
+			sendHttpResponse(ctx, req, res);
+		}
 		if (req.getUri().contains(".css")){ 
 			String filename = req.getUri().replace("/", "");
 			String type = "text/css; charset=UTF-8";
