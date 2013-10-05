@@ -100,7 +100,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 		
 		if ("/status".equals(req.getUri())){
 			HttpResponse res = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-			ChannelBuffer content = ChannelBuffers.copiedBuffer("Status: OK".getBytes());
+			ChannelBuffer content = StatusChecker.getInstance().printStatus();
 			res.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text; charset=UTF-8");
 			HttpHeaders.setContentLength(res, content.readableBytes());
 			res.setContent(content);

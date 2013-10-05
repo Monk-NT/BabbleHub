@@ -2,6 +2,7 @@ package hr.bitman.babbleHub;
 
 import hr.bitman.babbleHub.config.ServerConfig;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
+import hr.bitman.babbleHub.server.StatusChecker;
 import hr.bitman.babbleHub.server.WebSocketPipelineFactory;
 
 import java.net.InetSocketAddress;
@@ -13,6 +14,7 @@ import org.jboss.netty.logging.InternalLoggerFactory;
 import org.jboss.netty.logging.Log4JLoggerFactory;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
  * 
@@ -46,15 +48,23 @@ public class BabbleHub {
 		bootstrap.bind(new InetSocketAddress(port));
 		
 		System.out.println("Server started at http://localhost:" + port);
-		final Jedis subJed = new Jedis(ServerConfig.getConfig().getRedisLocation());
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				subJed.subscribe(subscriber, "chat");
+		try{
+			final Jedis subJed = new Jedis(ServerConfig.getConfig().getRedisLocation());
+			new Thread(new Runnable() {
 				
-			}
-		}).start();
+				@Override
+				public void run() {
+					try{
+						subJed.subscribe(subscriber, "chat");
+					} catch(JedisConnectionException e){
+						StatusChecker.getInstance().redisIsDown();
+					}
+				}
+			}).start();
+		} catch(JedisConnectionException e){
+			StatusChecker.getInstance().redisIsDown();
+		}
+		
 	}
 	
 }
