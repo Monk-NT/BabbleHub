@@ -23,7 +23,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision :shell, :path => "vagrant/bootstrap.sh"
+  
 
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "vagrant/manifests"
+    puppet.manifest_file = "default.pp"
+  end
 
   # vb.costumize["modifyvm", :id, "--memory", "1536"]
   
