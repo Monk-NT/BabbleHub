@@ -3,6 +3,8 @@ var socket = new WebSocket("ws://localhost:8080/bableHub");
 var chatMsgs = "";
 
 socket.onopen = function(event){  
+  var node = document.getElementById('chat');
+  node.innerHtml = "AAAA";
 };
 
 socket.onmessage = function(event){
@@ -17,7 +19,7 @@ socket.onmessage = function(event){
 function send (message) {
   var form = document.getElementById("chatInput");
   form.reset();
-  if (socket.readyState == WebSocket.OPEN){
+  if (socket.readyState == WebSocket.OPEN && message!=""){
     socket.send(message);
   }
 };
