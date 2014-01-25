@@ -12,8 +12,8 @@ At this moment, everything is a work in progress, including this README.
 
  * Install [simple build tool](http://www.scala-sbt.org/);
  * Install [Redis](http://redis.io/) OR:
-  * Install virtualbox;
-  * install vagrant;
+  * Install [Virtualbox](https://www.virtualbox.org/);
+  * install [Vagrant](http://www.vagrantup.com/);
   * run ```vagrant up```;
  * Change the server.properties;
  * To run, simply type ```sbt run``` in your command line.
