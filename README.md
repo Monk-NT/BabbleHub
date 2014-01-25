@@ -33,13 +33,7 @@ Change it to:
 where ```PORT_NUM``` is an integer indicating port.
 
 More on using jedis can be seen in the [jedis wiki](https://github.com/xetorthio/jedis/wiki)
-## If you want to you could...##
 
-...help me with javascript
-
-...look for bugs in java source
-
-...or just throw ideas at me. Including silly ones.
 ## Further work ##
 
  * ~~Add deployment by Vagrant~~
