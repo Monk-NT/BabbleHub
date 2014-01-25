@@ -3,4 +3,5 @@ logs/
 tags
 project/target
 .vagrantfile
+.vagrant
 .sbt~
