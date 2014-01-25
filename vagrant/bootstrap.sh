@@ -1,32 +1,23 @@
 #!/usr/bin/env bash
-set -e
 
-if [ "$EUID" -ne "0" ]; then
-  echo "Script must be run as root." >&2
-  exit 1
-fi
+cd /tmp
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+sudo make install
 
-if which puppet > /dev/null; then
-  echo "Puppet is already installed"
-  exit 0
-fi
 
-echo "Installing puppet repo for Ubuntu"
-wget -q0 /tmp/puppetlabs-release-precise.deb \
+sudo mkdir /etc/redis
+sudo mkdir -p /var/redis/6379
 
-  https://apt.puppetlabs.com/puppetlabs-release-precise.deb
 
-dpkg -i /tmp/puppetlabs-release-precise.deb
+sudo useradd --system --home-dir /var/redis redis
+sudo chown -R redis.redis /var/redis
 
-rm /tmp/puppetlabs-release-precise.deb
+sudo cp /vagrant/vagrant/redis.conf /etc/redis/6379.conf
+sudo cp /vagrant/vagrant/redis.init.d /etc/init.d/redis_6379
 
-aptitude update
-
-#aptitude upgrade -y
-
-echo Installing puppet
-
-aptitude install -y puppet
-
-echo "Puppet installed!"
+sudo update-rc.d redis_6379 defaults
+/etc/init.d/redis_6379 start
 

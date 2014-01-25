@@ -17,19 +17,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box"
   config.vm.hostname = "devel.base.vm"
   config.vm.network :private_network, ip: "192.168.0.5"
-  config.vm.network :forwarded_port, guest: 80, host:8080
+  config.vm.network :forwarded_port, guest: 6379, host:6379
 
   config.vm.provider :virtualbox do |vb|
   end
 
   config.vm.provision :shell, :path => "vagrant/bootstrap.sh"
 
-  config.vm.provision :puppet do |puppet|
-    puppet.manifests_path  = "vagrant/manifests"
-    puppet.manifest_file = "site.pp"
-    puppet.module_path = "vagrant/modules"
-    puppet.options = "--verbose --debug"
-  end
 
   # vb.costumize["modifyvm", :id, "--memory", "1536"]
   
