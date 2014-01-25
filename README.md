@@ -1,7 +1,7 @@
 # BabbleHub #
 ============
 
-Current version = 0.5.9
+Current version = 0.6.0
 
 BabbleHub is a simple web chat client built on top of [Netty](http://netty.io) library, [Redis database](http://redis.io/) and WebSockets.
 Connecting to Redis is done using the awesome [Jedis](https://github.com/xetorthio/jedis) library.
@@ -11,7 +11,10 @@ At this moment, everything is a work in progress, including this README.
 ## Installation instructions ##
 
  * Install [simple build tool](http://www.scala-sbt.org/);
- * Install [Redis](http://redis.io/);
+ * Install [Redis](http://redis.io/) OR:
+  * Install virtualbox;
+  * install vagrant;
+  * run ```vagrant up```;
  * Change the server.properties;
  * To run, simply type ```sbt run``` in your command line.
  * Point your browser to [localhost:8080](http://localhost:8080/)
@@ -39,7 +42,7 @@ More on using jedis can be seen in the [jedis wiki](https://github.com/xetorthio
 ...or just throw ideas at me. Including silly ones.
 ## Further work ##
 
- * ~~Add deployment by Vargant~~
+ * ~~Add deployment by Vagrant~~
  * Add picture support;
  * Add file upload support;
  * Authentication;
