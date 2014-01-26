@@ -21,3 +21,4 @@ sudo cp /vagrant/vagrant/redis.init.d /etc/init.d/redis_6379
 sudo update-rc.d redis_6379 defaults
 /etc/init.d/redis_6379 start
 
+puppet module install puppetlabs/postgresql
