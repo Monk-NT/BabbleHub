@@ -1,6 +1,6 @@
 name := "BabbleHub"
 
-version := "0.6.0"
+version := "0.6.1"
 
 libraryDependencies ++= Seq(
   "commons-configuration" % "commons-configuration" % "1.9",
