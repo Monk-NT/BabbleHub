@@ -1,5 +1,7 @@
 package hr.bitman.babbleHub.buffer;
 
+import hr.bitman.babbleHub.server.messages.Message;
+
 /**
  * Class used to buffer the chat
  * @author vsrdarevic
@@ -7,27 +9,27 @@ package hr.bitman.babbleHub.buffer;
  */
 public class BabbleBuffer {
 
-	private String[] buffer;
+	private Message[] buffer;
 	
 	private final int BUF_SIZE = 10;
 	private int cur = 0;
 	
 	public BabbleBuffer(){
-		buffer = new String[BUF_SIZE];
+		buffer = new Message[BUF_SIZE];
 	}
 	
-	public BabbleBuffer(String chatLine){
+	public BabbleBuffer(String userId, String message){
 		super();
-		buffer[cur] = chatLine;
+		buffer[cur] = new Message(userId, message);
 		cur++;
 	}
 	
-	public void addLine(String chatLine){
+	public void addLine(String userId, String message){
 		if (cur == BUF_SIZE){
 			cur = 0;
 			setToNull();
 		}
-		buffer[cur] = chatLine;
+		buffer[cur] = new Message(userId, message);
 		cur++;
 	}
 	
@@ -38,6 +40,10 @@ public class BabbleBuffer {
 			sb.append(buffer[i] + "\n");
 		}
 		return sb.toString();
+	}
+	
+	public Message[] getBuffer(){
+		return this.buffer;
 	}
 	
 	private void setToNull(){

@@ -1,6 +1,9 @@
 package hr.bitman.babbleHub.server.config;
 
+import com.google.gson.Gson;
+
 import hr.bitman.babbleHub.buffer.BabbleBuffer;
+import hr.bitman.babbleHub.server.messages.Message;
 
 public class PrepareMessage {
 
@@ -12,14 +15,17 @@ public class PrepareMessage {
 		StringBuilder sb = new StringBuilder();
 		sb.append(message.replaceAll(FIND_URLS,  "<a href='$0'>$0</a>"));
 		
+		Message m = new Message(userId, sb.toString());
+		Gson gson = new Gson();
 		
-		return "{\"userId\": \"" + userId + "\", \"message\": \"" + sb.toString() + "\"}";
+		return gson.toJson(m);
 	}
 	
 	public static String createMessage(BabbleBuffer buffer){
 		
-		String bufferedText = buffer.toString();
-		return "{\"messages\": [" + bufferedText.substring(0, bufferedText.length()) + "]}"; 
+		Gson gson = new Gson();
+		
+		return gson.toJson(buffer.getBuffer());
 		
 	}
 

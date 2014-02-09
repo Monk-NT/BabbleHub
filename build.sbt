@@ -7,4 +7,5 @@ libraryDependencies ++= Seq(
   "com.google.guava" % "guava" % "14.0.1",
   "redis.clients" % "jedis" % "2.1.0",
   "log4j" % "log4j" % "1.2.17",
-  "io.netty" % "netty" % "3.6.6.Final")
+  "io.netty" % "netty" % "3.6.6.Final",
+  "com.google.code.gson" % "gson" % "2.2.4")

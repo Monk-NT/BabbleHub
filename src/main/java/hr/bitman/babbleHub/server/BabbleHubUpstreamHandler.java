@@ -29,6 +29,8 @@ import org.jboss.netty.logging.InternalLogger;
 import org.jboss.netty.logging.InternalLoggerFactory;
 import org.jboss.netty.util.CharsetUtil;
 
+import com.google.gson.Gson;
+
 public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 	
 	private final RedisPublisher publisher = new RedisPublisher();
@@ -67,7 +69,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 		log.debug("Recieved message");
 		String message = PrepareMessage.createMessage("" + ctx.getChannel().getId(), request);
 		log.debug("message prepared: " + message);
-		buffer.addLine(message+",");
+		buffer.addLine("" + ctx.getChannel().getId(), request);
 		
 		publisher.publish(message);
 		
@@ -136,7 +138,8 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 			
 			handshaker.handshake(ctx.getChannel(), req).addListener(WebSocketServerHandshaker.HANDSHAKE_LISTENER);
 			log.info("Handshake succeeded, adding channel to subscriber");
-			log.debug("Sending buffered chat:" + buffer.toString());
+			Gson gson = new Gson();
+			log.debug("Sending buffered chat:" + gson.toJson(buffer.getBuffer()));
 			ctx.getChannel().write(new TextWebSocketFrame(PrepareMessage.createMessage(buffer)));
 			log.info("Adding channel: " + ctx.getChannel().getId());
 			subscriber.addChannel(ctx.getChannel());
