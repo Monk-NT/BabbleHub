@@ -4,6 +4,7 @@ import hr.bitman.babbleHub.buffer.BabbleBuffer;
 import hr.bitman.babbleHub.redis.RedisPublisher;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
 import hr.bitman.babbleHub.server.config.PrepareMessage;
+import hr.bitman.babbleHub.server.status.Status;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -102,7 +103,7 @@ public class BabbleHubUpstreamHandler extends SimpleChannelUpstreamHandler {
 		
 		if ("/status".equals(req.getUri())){
 			HttpResponse res = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-			ChannelBuffer content = StatusChecker.getInstance().printStatus();
+			ChannelBuffer content = Status.getInstance().printStatus();
 			res.setHeader(HttpHeaders.Names.CONTENT_TYPE, "text; charset=UTF-8");
 			HttpHeaders.setContentLength(res, content.readableBytes());
 			res.setContent(content);

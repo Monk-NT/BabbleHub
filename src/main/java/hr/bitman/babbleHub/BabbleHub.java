@@ -2,8 +2,8 @@ package hr.bitman.babbleHub;
 
 import hr.bitman.babbleHub.config.ServerConfig;
 import hr.bitman.babbleHub.redis.RedisSubscriber;
-import hr.bitman.babbleHub.server.StatusChecker;
 import hr.bitman.babbleHub.server.WebSocketPipelineFactory;
+import hr.bitman.babbleHub.server.status.Status;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -57,12 +57,12 @@ public class BabbleHub {
 					try{
 						subJed.subscribe(subscriber, "chat");
 					} catch(JedisConnectionException e){
-						StatusChecker.getInstance().redisIsDown();
+						Status.getInstance().redisIsDown();
 					}
 				}
 			}).start();
 		} catch(JedisConnectionException e){
-			StatusChecker.getInstance().redisIsDown();
+			Status.getInstance().redisIsDown();
 		}
 		
 	}
