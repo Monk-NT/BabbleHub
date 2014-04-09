@@ -1,6 +1,8 @@
 name := "BabbleHub"
 
-version := "0.6.1"
+version := "0.6.1a"
+
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 libraryDependencies ++= Seq(
   "commons-configuration" % "commons-configuration" % "1.9",
