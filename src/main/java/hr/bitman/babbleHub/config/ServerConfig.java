@@ -22,8 +22,8 @@ public class ServerConfig {
 
 	
 	private ServerConfig(){
-		InputStream is = getClass().getResourceAsStream("/configuration/server.properties");
-		try {
+		
+		try(InputStream is = getClass().getResourceAsStream("/configuration/server.properties")) {
 			props.load(is);
 		} catch (IOException e) {
 			log.error("Can not load resource", e);

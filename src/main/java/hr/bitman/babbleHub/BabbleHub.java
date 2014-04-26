@@ -50,17 +50,14 @@ public class BabbleHub {
 		System.out.println("Server started at http://localhost:" + port);
 		try{
 			final Jedis subJed = new Jedis(ServerConfig.getConfig().getRedisLocation());
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
+			new Thread(() -> {
 					try{
 						subJed.subscribe(subscriber, "chat");
 					} catch(JedisConnectionException e){
 						Status.getInstance().redisIsDown();
 					}
 				}
-			}).start();
+			).start();
 		} catch(JedisConnectionException e){
 			Status.getInstance().redisIsDown();
 		}
