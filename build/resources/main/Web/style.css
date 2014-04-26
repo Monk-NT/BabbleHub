@@ -1,0 +1,23 @@
+body{
+      width: 70%;
+      margin: auto;
+    }
+    .halfWidth {
+      width: 95%;
+      color: #E18A07;
+      font-size: 12pt;
+      font-family: Arial;
+      outline:none;
+    }
+    #chat{
+      font-size: 12pt;
+      font-family:'Open sans', sans-serif;
+      resize:both;
+      overflow:auto;
+    }
+
+    #container {
+      overflow: auto;
+      width: 100%;
+      height: 80%;
+    }

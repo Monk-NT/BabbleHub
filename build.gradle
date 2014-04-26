@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin:'application'
+
+mainClassName = "hr.bitman.babbleHub.Main"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies{
+    compile 'commons-configuration:commons-configuration:1.9'
+    compile 'com.google.guava:guava:14.0.1'
+    compile 'redis.clients:jedis:2.1.0'
+    compile 'log4j:log4j:1.2.17'
+    compile 'io.netty:netty:3.6.6.Final'
+    compile 'com.google.code.gson:gson:2.2.4'
+}
